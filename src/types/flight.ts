@@ -22,5 +22,5 @@ export interface City {
     name: string;
 }
 
-export type SortCriteria = 'price' | 'duration' | 'airline';
+export type SortCriteria = 'price' | 'duration' | 'airline' | 'price-desc';
 export type PathAlgorithm = 'dijkstra' | 'bfs';

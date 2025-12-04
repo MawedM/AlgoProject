@@ -51,6 +51,8 @@ export class FlightSorter {
         switch (criteria) {
             case 'price':
                 return a.price - b.price;
+            case 'price-desc':
+                return b.price - a.price;
             case 'duration':
                 return a.duration - b.duration;
             case 'airline':

@@ -31,8 +31,10 @@ function App() {
 
   const handleSearch = () => {
     setHasSearched(true);
+  };
 
-    if (!fromCity || !toCity) {
+  useEffect(() => {
+    if (!hasSearched || !fromCity || !toCity) {
       return;
     }
 
@@ -70,13 +72,10 @@ function App() {
       setConnections(allPaths);
       setOptimalConnection(null);
     }
-  };
-
+  }, [viewMode, fromCity, toCity, hasSearched]);
+  
   const handleViewModeChange = (mode: ViewMode) => {
     setViewMode(mode);
-    setHasSearched(false);
-    setOptimalConnection(null);
-    setConnections([]);
   };
 
   const getFilteredFlights = (): Flight[] => {

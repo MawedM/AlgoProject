@@ -69,6 +69,7 @@ export const SearchForm: React.FC<SearchFormProps> = ({
                         onChange={(e) => onSortByChange(e.target.value as SortCriteria)}
                     >
                         <option value="price">Price (Low to High)</option>
+                        <option value="price-desc">Price (High to Low)</option>
                         <option value="duration">Duration (Shortest First)</option>
                         <option value="airline">Airline (A-Z)</option>
                     </select>
