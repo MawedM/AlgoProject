@@ -68,7 +68,7 @@ function App() {
       setOptimalConnection(null);
     }
   }, [viewMode, fromCity, toCity]);
-  
+
   const handleViewModeChange = (mode: ViewMode) => {
     setViewMode(mode);
   };
@@ -208,6 +208,12 @@ function App() {
     setViewMode('all-flights');
   };
 
+  const handleSearch = () => {
+    if (viewMode === 'all-flights') {
+      setViewMode('dijkstra-cheapest');
+    }
+  };
+
   return (
     <div className="app-container">
       <header className="app-header">
@@ -225,6 +231,7 @@ function App() {
         onFromCityChange={setFromCity}
         onToCityChange={setToCity}
         onSortByChange={setSortBy}
+        onSearch={handleSearch}
         onClear={handleClear}
       />
 
