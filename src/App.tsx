@@ -21,7 +21,6 @@ function App() {
   const [sortedFlights, setSortedFlights] = useState<Flight[]>([]);
   const [connections, setConnections] = useState<Connection[]>([]);
   const [optimalConnection, setOptimalConnection] = useState<Connection | null>(null);
-  const [hasSearched, setHasSearched] = useState(false);
 
   // Sort all flights on mount and when sort criteria changes
   useEffect(() => {
@@ -29,12 +28,8 @@ function App() {
     setSortedFlights(sorted);
   }, [sortBy]);
 
-  const handleSearch = () => {
-    setHasSearched(true);
-  };
-
   useEffect(() => {
-    if (!hasSearched || !fromCity || !toCity) {
+    if (!fromCity || !toCity) {
       return;
     }
 
@@ -72,7 +67,7 @@ function App() {
       setConnections(allPaths);
       setOptimalConnection(null);
     }
-  }, [viewMode, fromCity, toCity, hasSearched]);
+  }, [viewMode, fromCity, toCity]);
   
   const handleViewModeChange = (mode: ViewMode) => {
     setViewMode(mode);
@@ -115,25 +110,13 @@ function App() {
       );
     }
 
-    if (!hasSearched) {
+    if (!fromCity || !toCity) {
       return (
         <div className="empty-state">
           <div className="empty-icon">🔍</div>
           <h3 className="empty-title">Ready to find connections</h3>
           <p className="empty-description">
-            Select departure and destination cities, then click "Search Flights"
-          </p>
-        </div>
-      );
-    }
-
-    if (!fromCity || !toCity) {
-      return (
-        <div className="empty-state">
-          <div className="empty-icon">⚠️</div>
-          <h3 className="empty-title">Missing information</h3>
-          <p className="empty-description">
-            Please select both departure and destination cities
+            Select departure and destination cities to see the routes.
           </p>
         </div>
       );
@@ -220,7 +203,6 @@ function App() {
   const handleClear = () => {
     setFromCity('');
     setToCity('');
-    setHasSearched(false);
     setOptimalConnection(null);
     setConnections([]);
     setViewMode('all-flights');
@@ -243,7 +225,6 @@ function App() {
         onFromCityChange={setFromCity}
         onToCityChange={setToCity}
         onSortByChange={setSortBy}
-        onSearch={handleSearch}
         onClear={handleClear}
       />
 
